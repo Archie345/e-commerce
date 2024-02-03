@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 require('dotenv').config()
 
 const Users = require("./src/Models/Users")
-const { register, login, findUser } = require("./src/Controllers/Users")
+const { register, login, findUser, updateUser } = require("./src/Controllers/Users")
 const http = require("http");
 const { Server } = require("socket.io")
 const server = express()
@@ -31,8 +31,13 @@ server.get("/",(req,res)=>{
 server.post("/register",register,sendEmail)
  server.post("/login",login)    
  server.post("/addForm",validateForm,isValidated,addForm);
+// server.put("/update-user",verifyToken,updateUser)
+ server.get("/get-product/:id",(req,res)=>{
+  res.send(req.params.id)
+ })
 
  server.get("/get-user",verifyToken,findUser)
+
 
 io.on("connection",socket=>{
   console.log("new user connected");
@@ -47,6 +52,6 @@ app.listen(port,()=>{
     
 })
 const mongodb = process.env.MONGODB_URL
-mongoose.connect(mongodb)
+mongoose.connect("mongodb://singhbinita633:pYeJOOZXawpA7cDz@ac-4s41eqk-shard-00-00.i370czn.mongodb.net:27017,ac-4s41eqk-shard-00-01.i370czn.mongodb.net:27017,ac-4s41eqk-shard-00-02.i370czn.mongodb.net:27017/?ssl=true&replicaSet=atlas-167kby-shard-0&authSource=admin&retryWrites=true&w=majority")
 .then (data=>console.log("Database Connected"))
 .catch(error=>console.log("Error"))

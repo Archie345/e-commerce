@@ -58,3 +58,18 @@ exports.findUser = async (req,res) =>{
   const user = await user.findBy(req.id)
   return res.status(200).json({user})
 }
+
+exports.updateUser = async(req,res) =>{
+try {
+  const newData = req.body;
+    const updateUser = await user.findByIdAndUpdate(req.id,newData)
+    return res.status(200).json({updateUser})
+} catch (error){
+  res.status(404).json({message:"Error Occurred"})
+}
+
+  
+{
+  
+}
+}
